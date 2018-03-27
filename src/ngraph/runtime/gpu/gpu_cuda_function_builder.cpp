@@ -39,7 +39,12 @@ std::shared_ptr<CUfunction> runtime::gpu::CudaFunctionBuilder::get(const std::st
 
     if (compile_result != NVRTC_SUCCESS)
     {
-        throw std::runtime_error("compile error: \n" + kernel + "\n options");
+        std::string options_str;
+        for (size_t i = 0; i < number_of_options; i++)
+        {
+            options_str += std::string(options[i]) + " ";
+        }
+        throw std::runtime_error("compile error:\n" + kernel + "\n options:\n" + options_str);
     }
 
     size_t ptx_size;
