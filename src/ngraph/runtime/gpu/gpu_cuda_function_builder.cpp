@@ -44,7 +44,7 @@ std::shared_ptr<CUfunction> runtime::gpu::CudaFunctionBuilder::get(const std::st
         {
             options_str += std::string(options[i]) + " ";
         }
-        throw std::runtime_error("compile error:\n" + kernel + "\n options:\n" + options_str);
+        throw std::runtime_error("\ncompile failed on kernel:\n" + kernel + "\noptions:\n" + options_str);
     }
 
     size_t ptx_size;
