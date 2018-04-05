@@ -22,9 +22,9 @@ from ngraph.impl import AxisSet, AxisVector, Coordinate, CoordinateDiff, Node, N
 
 from ngraph.impl.op import Abs, Acos, Add, Asin, Atan, AvgPool, BatchNorm, Broadcast, Ceiling, \
     Concat, Constant, Convert, Convolution, Cos, Cosh, Divide, Dot, Equal, Exp, Floor, \
-    FunctionCall, Greater, GreaterEq, Less, LessEq, Log, Max, Maximum, MaxPool, Min, Minimum, \
-    Multiply, Negative, Not, NotEqual, Parameter, Product, Reshape, Slice, Softmax, Sqrt, Subtract,\
-    Sum, Tanh
+    FunctionCall, GetOutputElement, Greater, GreaterEq, Less, LessEq, Log, Max, Maximum, MaxPool, \
+    Min, Minimum, Multiply, Negative, Not, NotEqual, Parameter, Product, Reshape, Slice, Softmax, \
+    Sqrt, Subtract, Sum, Tanh
 
 from typing import Callable, Iterable, List
 
@@ -590,3 +590,10 @@ def batch_norm(eps,             # type: float
 def function_call(function_to_call, args):  # type: (Callable, NodeVector) -> Node
     """Return Function call op."""
     return FunctionCall(function_to_call, args)
+
+
+@nameable_op
+def get_output_element(data, index):  # type: (Node, int) -> Node
+    """Return the `n`th element of the input tuple."""
+    return GetOutputElement(data, index)
+
