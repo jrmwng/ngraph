@@ -20,10 +20,10 @@ import numpy as np
 from ngraph.impl import AxisSet, AxisVector, Coordinate, CoordinateDiff, Node, NodeVector, \
     Shape, Strides
 
-from ngraph.impl.op import Abs, Acos, Add, Asin, Atan, AvgPool, Broadcast, Ceiling, Concat, \
-    Constant, Convert, Convolution, Cos, Cosh, Divide, Dot, Equal, Exp, Floor, Greater, GreaterEq, \
-    Less, LessEq, Log, Max, Maximum, MaxPool, Min, Minimum, Multiply, Negative, Not, NotEqual, \
-    Parameter, Product, Reshape, Slice, Softmax, Sqrt, Subtract, Sum, Tanh
+from ngraph.impl.op import Abs, Acos, Add, Asin, Atan, AvgPool, BatchNorm, Broadcast, Ceiling, \
+    Concat, Constant, Convert, Convolution, Cos, Cosh, Divide, Dot, Equal, Exp, Floor, Greater, \
+    GreaterEq, Less, LessEq, Log, Max, Maximum, MaxPool, Min, Minimum, Multiply, Negative, Not, \
+    NotEqual, Parameter, Product, Reshape, Slice, Softmax, Sqrt, Subtract, Sum, Tanh
 
 from typing import Iterable, List
 
@@ -565,3 +565,21 @@ def softmax(node, axes):  # type: (Node, Iterable[int]) -> Node
     if type(axes) is not set:
         axes = set(axes)
     return Softmax(node, AxisSet(axes))
+
+
+@nameable_op
+def batch_norm(eps,             # type: float
+               gamma,           # type: Node
+               beta,            # type: Node
+               data,            # type: Node
+               mean=None,       # type: Node
+               variance=None,   # type: Node
+               training=False,  # type: bool
+               name=None,       # type: str
+               ):
+    # type: (...) -> Node
+    """Return batch normalization node."""
+    if mean is None and variance is None:
+        return BatchNorm(eps, gamma, beta, data)
+    else:
+        return BatchNorm(eps, gamma, beta, data, mean, variance, training)
