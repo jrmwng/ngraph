@@ -53,6 +53,7 @@ from ngraph.ops import not_equal
 from ngraph.ops import pad
 from ngraph.ops import parameter
 from ngraph.ops import prod
+from ngraph.ops import reduce
 from ngraph.ops import reshape
 from ngraph.ops import slice
 from ngraph.ops import softmax
